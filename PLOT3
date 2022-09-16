@@ -1,0 +1,104 @@
+% 一维的极化曲线拆解
+clc ; clear ; close all ;
+V2 = load ('SOLV2_middle.mat') ;
+
+a = size(V2.SOL,2) ;
+for number = 1:size(V2.SOL,2) 
+end
+%% 计算数据
+L = [170 2.5 8 7.5 170]*1e-6; % [m] MEA layer thicknesses
+Lsum = [0 cumsum(L)] ; 
+xmesh = V2.SOL{number}.x .* 1e6 ; % 位置 
+xmesh_AGDL_le= 1 ;
+xmesh_AGDL_ri= find(xmesh>Lsum(2)*1e6,1,'first') ;
+xmesh_ACL_le = find(xmesh>Lsum(2)*1e6,1,'first') ;
+xmesh_ACL_ri = find(xmesh<Lsum(3)*1e6,1,'last' ) ;
+xmesh_PEM_le = xmesh_ACL_ri ;
+xmesh_PEM_ri = find(xmesh<Lsum(4)*1e6,1,'last') ;
+xmesh_CCL_le = xmesh_PEM_ri ;
+xmesh_CCL_ri = find(xmesh<Lsum(5)*1e6,1,'last') ;
+xmesh_CGDL_le = xmesh_CCL_ri ;
+xmesh_CGDL_ri = numel(xmesh );
+phi_e = V2.SOL{number}.y(1,:) ; % V 电子电势
+phi_p = V2.SOL{number}.y(3,:) ; % V 质子电势
+T = V2.SOL{number}.y(5,:) ; % K 温度
+T_re = 273.15 + 75 ; % K 温度
+T_ref = 273.15 +80 ; % K 温度
+x_h2 = V2.SOL{number}.y(11,:) ; % 氢气摩尔分数
+x_o2 = V2.SOL{number}.y(13,:) ; % 氧气摩尔分数
+lambda = V2.SOL{number}.y(7,:) ; % lambda
+I_e = V2.SOL{number}.y(2,end) ; % A/m2
+I_p_ACL = V2.SOL{number}.y(4,xmesh_ACL_le:xmesh_ACL_ri) ;
+I_p_CCL = V2.SOL{number}.y(4,xmesh_CCL_le:xmesh_CCL_ri) ;
+F = 96485.333; % [C/mol] Faraday constant
+R = 8.31446; % [J*mol/K] universal gas constant
+P_ref = 101325; % [Pa] reference pressure
+P_A = 259907; % [Pa] total pressure in anode gas channel
+P_C = 254870; % [Pa] total pressure in cathode gas channel
+P_h2 = x_h2 .* P_A ; % Pa 氢气分压
+P_o2 = x_o2 .* P_C ; % Pa 氧气分压
+DeltaS_HOR = 0.104; % [J/(mol*K)] reaction entropy of HOR
+DeltaS_ORR = -163.3; % [J/(mol*K)] reaction entropy of ORR
+DeltaH = -285.83e3; % [J/mol] enthalpy of formation of liquid water
+Delta_phi = phi_e - phi_p ; % V 相位差
+M_w = 18e-3; % [kg/mol] molar mass of water
+V_m = 1.02/1.97e3; % [m^3/mol] molar volume of dry membrane (equivalent weight divided by mass density)
+V_w = M_w/0.978e3; % [m^3/mol] molar volume of liquid water (molar mass divided by mass density)
+%% 理论电压
+E_re = 1.428 - 0.000845 .* T_re + 0.0000431 .* T_re .* log(P_A./P_ref .* (P_C.*0.21./P_ref).^0.5);
+%% 阳极活化过电位 催化层
+phi_a = - T .* DeltaS_HOR ./2 ./F - R.* T./2./F.*log(P_h2 ./P_ref ) ; % 阳极可逆电位
+Delta_phia = Delta_phi - phi_a ; 
+Delta_phia_avg = trapz(xmesh(xmesh_ACL_le:xmesh_ACL_ri)./1e6 , Delta_phia(xmesh_ACL_le:xmesh_ACL_ri) ) ;
+Vphia{number} = Delta_phia_avg ;
+%% 阴极活化过电位 催化层
+phi_c = - (DeltaH - T.*DeltaS_ORR)./2./F + R.* T./4./F .*log(P_o2./P_ref) ; % 阴极可逆电位
+Delta_phic = phi_c - Delta_phi ;
+figure('name','一维方向的电位分布') ;
+plot (xmesh( xmesh_ACL_le : xmesh_ACL_ri) , Delta_phia( xmesh_ACL_le : xmesh_ACL_ri ) ) ;
+hold on ;
+plot(xmesh( xmesh_CCL_le : xmesh_CCL_ri) , Delta_phic( xmesh_CCL_le : xmesh_CCL_ri ) ) ;
+legend( '阳极过电位','阴极过电位' ) ;
+xlabel('x(um)') ; ylabel ('活化过电位（V）') ;
+
+%% 阳极离子欧姆损失 催化层
+f_ACL = lambda(xmesh_ACL_le:xmesh_ACL_ri).*V_w ./(lambda(xmesh_ACL_le:xmesh_ACL_ri).*V_w+V_m) ;
+sigma_ACL = 0.3 ^1.5 .*116 .*max(0,f_ACL-0.06).^1.5.*exp(15e3./R.*(1./T_ref-1./T(xmesh_ACL_le:xmesh_ACL_ri))) ; % S/m 阳极CL电导率
+V_R_ACL = trapz(xmesh(xmesh_ACL_le:xmesh_ACL_ri)./1e6 ,1./sigma_ACL.*I_p_ACL ) ; % Ωm2 
+% V_R_ACL = R_ACL .* I ;
+%% 膜离子欧姆损失 
+f_PEM = lambda(xmesh_PEM_le:xmesh_PEM_ri).*V_w ./(lambda(xmesh_PEM_le:xmesh_PEM_ri).*V_w+V_m) ;
+sigma_PEM = 116 .*max(0,f_PEM-0.06).^1.5.*exp(15e3./R.*(1./T_ref-1./T(xmesh_PEM_le:xmesh_PEM_ri))) ; % S/m PEM电导率
+R_PEM = trapz(xmesh(xmesh_PEM_le:xmesh_PEM_ri)./1e6 ,1./sigma_PEM ) ;
+V_R_PEM = R_PEM .* I_e ;
+%% 阴极离子欧姆损失 催化层
+f_CCL = lambda(xmesh_CCL_le:xmesh_CCL_ri).*V_w ./(lambda(xmesh_CCL_le:xmesh_CCL_ri).*V_w+V_m) ;
+sigma_CCL = 0.3 ^1.5 .*116 .*max(0,f_CCL-0.06).^1.5.*exp(15e3./R.*(1./T_ref-1./T(xmesh_CCL_le:xmesh_CCL_ri))) ; % S/m 阳极CL电导率
+V_R_CCL = trapz(xmesh(xmesh_CCL_le:xmesh_CCL_ri)./1e6 ,1./sigma_CCL.*I_p_CCL ) ;
+% V_R_CCL = R_CCL .* I ;
+%% 总离子欧姆损失
+V_R_inor = V_R_CCL + V_R_ACL + V_R_PEM ;
+%% 电势 
+figure('name','电势') ;
+plot(xmesh,phi_e) ; hold on ; plot (xmesh,phi_p) ;
+hold on ; plot (xmesh(xmesh_CCL_le:xmesh_CGDL_ri),phi_e(xmesh_CCL_le:xmesh_CGDL_ri)-E_re);
+% xlim([150,200]) ;
+xlabel('x(um)'); ylabel('V');
+title('电位分布') ;
+xlim([160,195]);
+%%
+figure('name','阳极电导率') ;
+plot(xmesh(xmesh_ACL_le:xmesh_ACL_ri),sigma_ACL) ;
+figure('name','阴极电导率') ;
+plot(xmesh(xmesh_CCL_le:xmesh_CCL_ri),sigma_CCL) ;
+figure('name','lambda') ;
+plot(xmesh,lambda);
+%% 一维极化曲线分解
+
+
+
+
+
+
+
+
