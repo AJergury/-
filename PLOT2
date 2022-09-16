@@ -1,0 +1,53 @@
+% PLOT2
+% 绘制图形
+% 注意：需要把解提前存储在SOLV2
+clc ; clear ; close all ;
+V2 = load ('SOLV2.mat') ;
+number = 10 ;
+%% phie + phip 
+figure('name','电势') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(1,:)) ;
+hold on ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(3,:)) ;
+xlabel('x(um)') ;
+ylabel('V') ;
+%% phie + phip  170-188
+figure('name','电势') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(1,:)) ;
+hold on ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(3,:)) ;
+xlabel('x(um)') ;
+ylabel('V') ;
+xlim([170,188]);
+%% x_h2o 水摩尔分数
+figure('name','水摩尔分数') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(9,:)) ;
+xlabel('x(um)') ;
+ylabel('x_{H2O}') ;
+%% x_o2 氧气摩尔分数
+figure('name','氧气摩尔分数') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(13,:)) ;
+xlabel('x(um)') ;
+ylabel('x_{O2}') ;
+%% x_h2 氢气摩尔分数
+figure('name','氢气摩尔分数') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(11,:)) ;
+xlabel('x(um)') ;
+ylabel('x_{H2}') ;
+%% T 温度
+figure('name','温度') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(5,:));
+xlabel('x(um)') ;
+ylabel('T') ;
+%% s 液态水饱和度
+figure('name','液态水饱和度') ;
+plot(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(15,:));
+%% T 差值
+IU_d = interp1(V2.SOL{number}.x(:).*1e6,V2.SOL{number}.y(5,:) , [170,171,172.5,176,180.5,184,188,265,358]) ;
+%% 阴极过电位 
+phi_e = V2.SOL{number}.y(1,:) ; % 电子电势
+phi_p = V2.SOL{number}.y(3,:) ; % 质子电势
+Delta_phi = phi_e - phi_p ; 
+% 阴极
+
+%% 阳极过电位
