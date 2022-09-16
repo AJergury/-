@@ -1,0 +1,331 @@
+% PLOT
+% 注意：需要把解提前存储在SOLV0.mat与SOLV1.mat中
+clc ; clear ; close all
+V0 = load ('SOLV0.mat') ;
+V1 = load ('SOLV1.mat') ;
+V10 = load ('SOLV1.0.mat') ;
+% lambda
+figure(1) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(7,:)) ;
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(7,:)) ;
+xlabel('x(um)') ;
+ylabel('lambda') ;
+legend ( 'VO' ,'V1' ) ;
+xlim([160 205]) ;
+%% phi_e 
+figure(2) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(1,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(1,:));
+xlabel('x(um)') ;
+ylabel('\phi_e(V)') ;
+legend ( 'VO' ,'V1' ) ;
+% xlim([160 170]);
+%% j_e
+figure(3) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(2,:)/1e4);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(2,:)/1e4);
+xlabel('x(um)') ;
+ylabel('j_e(A/cm^2)') ;
+legend ( 'VO' ,'V1' ) ;
+%% phi_p
+figure(4) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(3,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(3,:));
+xlabel('x(um)') ;
+ylabel('\phi_p(V)') ;
+legend ( 'VO' ,'V1' ) ;
+% xlim([160 170]) ;
+%% j_p
+figure(5) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(4,:)/1e4);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(4,:)/1e4);
+xlabel('x(um)') ;
+ylabel('j_p(A/cm^2)') ;
+legend ( 'VO' ,'V1' ) ;
+%% T
+figure(6) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(5,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(5,:));
+xlabel('x(um)') ;
+ylabel('T(K)') ;
+legend ( 'VO' ,'V1' ) ;
+xlim([160 170 ]) ;
+%% j_T
+figure(7) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(6,:)/1e4);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(6,:)/1e4);
+xlabel('x(um)') ;
+ylabel('j_T(W/cm2)') ;
+legend ( 'VO' ,'V1' ) ;
+%% j_lambda
+figure(8) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(8,:)*1e2);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(8,:)*1e2);
+xlabel('x(um)') ;
+ylabel('j_lambda(umol/cm^2s)') ;
+legend ( 'VO' ,'V1' ) ;
+%% x_h2o
+figure(9) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(9,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(9,:));
+xlabel('x(um)') ;
+ylabel('x_h2o') ;
+legend ( 'VO' ,'V1' ) ;
+%% j_h2o
+figure(10) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(10,:)*1e2);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(10,:)*1e2);
+xlabel('x(um)') ;
+ylabel('j_h2o(umol/cm^2s)') ;
+legend ( 'VO' ,'V1' ) ;
+%% x_h2
+figure(11) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(11,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(11,:));
+xlabel('x(um)') ;
+ylabel('x_h2') ;
+legend ( 'VO' ,'V1' ) ;
+%% j_h2
+figure(12) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(12,:)*1e2);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(12,:)*1e2);
+xlabel('x(um)') ;
+ylabel('j_h2(umol/cm^2s)') ;
+legend ( 'VO' ,'V1' ) ;
+%% x_o2
+figure(13) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(13,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(13,:));
+xlabel('x(um)') ;
+ylabel('x_o2') ;
+legend ( 'VO' ,'V1' ) ;
+%% j_o2
+figure(14) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(14,:)*1e2);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(14,:)*1e2);
+xlabel('x(um)') ;
+ylabel('j_o2(umol/cm^2s)') ;
+legend ( 'VO' ,'V1' ) ;
+%% s
+figure(15) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(15,:));
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(15,:));
+xlabel('x(um)') ;
+ylabel('s') ;
+legend ( 'VO' ,'V1' ) ;
+
+%% j_s
+figure(16) ;
+plot(V0.SOL{25}.x(:).*1e6,V0.SOL{25}.y(16,:)*1e2);
+hold on ;
+plot(V1.SOL{25}.x(:).*1e6,V1.SOL{25}.y(16,:)*1e2);
+xlabel('x(um)') ;
+ylabel('j_s(umol/cm^2s)') ;
+legend ( 'VO' ,'V1' ) ;
+
+%% 膜电导率
+M_w = 18e-3; % [kg/mol] 
+V_m = 1.02/1.97e3; % [m^3/mol] 
+V_w = M_w/0.978e3; % [m^3/mol] 
+T_0 = 273.15; % [K] zero degrees Celsius
+R = 8.31446; % J/(mol*K) universal gas constant
+% F = 96485.333; % [C/mol] Faraday constant
+% P_ref = 101325; % [Pa] reference pressure
+T_ref = T_0+80; % [K] reference temperature
+f = V0.SOL{25}.y(7,:).*V_w./( V0.SOL{25}.y(7,:).*V_w + V_m ) ;
+sigmaV0 = 1.^1.5.*116.*max(0,V0.SOL{25}.y(7,:).*V_w./( V0.SOL{25}.y(7,:).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V0.SOL{25}.y(5,:))) ; % S/m
+sigmaV1 = 1.^1.5.*116.*max(0,V1.SOL{25}.y(7,:).*V_w./( V1.SOL{25}.y(7,:).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V1.SOL{25}.y(5,:))) ; % S/m
+figure(17) ;
+plot( V0.SOL{25}.x(:).*1e6 , sigmaV0 ) ;
+hold on ;
+plot ( V1.SOL{25}.x(:).*1e6 , sigmaV1 ) ;
+xlabel('x(um)') ;
+ylabel('sigma(S/m)') ;
+legend ( 'VO' ,'V1' ) ;
+xlim ([170 195]) ;
+
+%% 过电位
+% 
+P_A = 1.5e5 ;
+R = 8.31446; % J/(mol*K) universal gas constant
+F = 96485.333; % [C/mol] Faraday constant
+P_ref = 101325; % [Pa] reference pressure
+DeltaS_HOR = 0.104; % [J/(mol*K)] reaction entropy of HOR
+V0phi_0 = - V0.SOL{25}.y(5,:).* DeltaS_HOR ./ 2./ F - R.* V0.SOL{25}.y(5,:)./2./F.*log(V0.SOL{25}.y(11,:).*1.5e5./P_ref) ;
+VOphi = abs(V0.SOL{25}.y(1,:) - V0.SOL{25}.y(3,:) -V0phi_0) ;
+% VOphi = abs(V0.SOL{25}.y(1,:) - V0.SOL{25}.y(3,:) ) ;
+V1phi_0 = - V1.SOL{25}.y(5,:).* DeltaS_HOR ./ 2./ F - R.* V1.SOL{25}.y(5,:)./2./F.*log(V1.SOL{25}.y(11,:).*P_A./P_ref) ;
+V1phi = abs(V1.SOL{25}.y(1,:) - V1.SOL{25}.y(3,:) -V1phi_0) ;
+% V1phi = abs(V1.SOL{25}.y(1,:) - V1.SOL{25}.y(3,:) ) ;
+figure(18)
+plot ( V0.SOL{25}.x(:).*1e6 , V0phi_0 ) ;
+hold on ;
+plot( V1.SOL{25}.x(:).*1e6 , V1phi_0  );
+legend ( 'VO' ,'V1' ) ;
+xlim ([160 170]) ;
+%% 阳极可逆电位
+figure(19) ;
+P_A = 1.5e5 ;
+M_w = 18e-3; % [kg/mol] 
+V_m = 1.02/1.97e3; % [m^3/mol] 
+V_w = M_w/0.978e3; % [m^3/mol] 
+T_0 = 273.15; % [K] zero degrees Celsius
+R = 8.31446; % J/(mol*K) universal gas constant
+F = 96485.333; % [C/mol] Faraday constant
+P_ref = 101325; % [Pa] reference pressure
+DeltaS_HOR = 0.104; % [J/(mol*K)] reaction entropy of HOR
+DeltaS_ORR = -163.3; % [J/(mol*K)] reaction entropy of ORR
+% V1phi_01 = (R.* V1.SOL{25}.y(5,:)./2./F.*log(V1.SOL{25}.y(11,:).*P_A./P_ref));
+V1phi_0 =  -(V1.SOL{25}.y(5,:).* DeltaS_HOR ./ 2./ F )- (R.* V1.SOL{25}.y(5,:)./2./F.*log(V1.SOL{25}.y(11,:).*P_A./P_ref)) ;
+plot( V1.SOL{25}.x(:).*1e6 , V1phi_0 );
+xlim([160 168]);
+
+%% 阴极过电位
+figure(20) ;
+P_C = 1.5e5; % [Pa]
+P_A = 1.5e5 ;
+M_w = 18e-3; % [kg/mol] 
+V_m = 1.02/1.97e3; % [m^3/mol] 
+V_w = M_w/0.978e3; % [m^3/mol] 
+T_0 = 273.15; % [K] zero degrees Celsius
+R = 8.31446; % J/(mol*K) universal gas constant
+F = 96485.333; % [C/mol] Faraday constant
+P_ref = 101325; % [Pa] reference pressure
+T_ref = T_0+80; % [K] reference temperature
+DeltaH = -285.83e3; % [J/mol] enthalpy of formation of liquid water
+DeltaS_HOR = 0.104; % [J/(mol*K)] reaction entropy of HOR
+DeltaS_ORR = -163.3; % [J/(mol*K)] reaction entropy of ORR
+V0phi_0 = -(DeltaH - V0.SOL{25}.y(5,:).*DeltaS_ORR)./2./F + R.* V0.SOL{25}.y(5,:)./4./F.*log(P_C.*V0.SOL{25}.y(13,:)./P_ref) ;
+V0phi = V0phi_0 - (V0.SOL{25}.y(1,:)-V0.SOL{25}.y(3,:)) ;
+V0p = V0phi_0 - V0phi ;
+
+
+V1phi_0 = -(DeltaH - V1.SOL{25}.y(5,:).*DeltaS_ORR)./2./F + R.* V1.SOL{25}.y(5,:)./4./F.*log(P_C.*V1.SOL{25}.y(13,:)./P_ref) ;
+V1phi = V1phi_0 - (V1.SOL{25}.y(1,:)-V1.SOL{25}.y(3,:)) ;
+V1p = V1phi_0 - V1phi ;
+plot (  V0.SOL{25}.x(:).*1e6 , V0p ) ;
+hold on ;
+plot (  V1.SOL{25}.x(:).*1e6 , V1p ) ;
+
+%% RH 
+
+T = 273.15 + 75 ; % K 
+P_A0 = 1.5e5 ; % Pa
+P_A1 = 1.5e5 ; % Pa
+P_sat0 = exp(23.1963-3816.44./(V0.SOL{25}.y(5,:)-46.13)) ; 
+P_sat1 = exp(23.1963-3816.44./(V1.SOL{25}.y(5,:)-46.13)) ;
+RH0 = V0.SOL{25}.y(9,:) ./( P_sat0 ./P_A0) ;
+RH1 = V1.SOL{25}.y(9,:) ./ (P_sat1 ./P_A1 );
+xmesh0 = V0.SOL{25}.x.*1e6 ;
+xmesh1 = V1.SOL{25}.x.*1e6 ;
+figure(22)
+plot (xmesh0,RH0);
+hold on ;
+plot (xmesh1,RH1);
+% xlim([0,170]) ;
+xlabel ('x(um)') ;
+ylabel ('RH') ;
+legend('V0','V1') ;
+% 平衡lambda
+figure(23)
+lambda_eq0 = 0.043 + 17.81 .* RH0 -39.85.*RH0.^2 +36.* RH0.^3 ;
+lambda_eq1 = 0.043 + 17.81 .* RH1 -39.85.*RH1.^2 +36.* RH1.^3 ;
+plot ( xmesh0,lambda_eq0 );
+hold on ;
+plot ( xmesh1,lambda_eq1 );
+xlabel ('x(um)') ;
+ylabel ('lambda_eq') ;
+legend('V0','V1') ;
+% xlim([0,170]) ;
+%% 饱和蒸汽压
+figure(24)
+T0 = V0.SOL{25}.y(5,:) ;
+T1 = V1.SOL{25}.y(5,:) ;
+P_sat0 = exp(23.1963-3816.44./(T0-46.13)); % [Pa] saturation pressure of water vapor
+P_sat1 = exp(23.1963-3816.44./(T1-46.13)) ; % [Pa] 
+xmesh0 = V0.SOL{25}.x.*1e6 ;
+xmesh1 = V1.SOL{25}.x.*1e6 ;
+plot (xmesh0,P_sat0);
+hold on ;
+plot (xmesh1,P_sat1);
+xlabel ('x(um)') ;
+ylabel ('P_sat') ;
+legend('V0','V1') ;
+%% 质子的焦耳热
+figure(25)
+jp0 = V0.SOL{25}.y(4,:) ./1e4; % W/cm2
+jp1 = V1.SOL{25}.y(4,:)./1e4 ; % W/cm2
+phi_e0 = V0.SOL{25}.y(3,:) ;
+phi_e1 = V1.SOL{25}.y(3,:) ;
+STp0 = - jp0 .* phi_e0 ;
+STp1 = - jp1 .* phi_e1 ;
+xmesh0 = V0.SOL{25}.x.*1e6 ;
+xmesh1 = V1.SOL{25}.x.*1e6 ;
+plot ( xmesh0,STp0 ) ;
+hold on ;
+plot ( xmesh1,STp1 ) ;
+xlabel ('x(um)') ;
+ylabel ('ST_p(W/cm2)') ;
+legend('V0','V1') ;
+%% 求解电导率
+clc ; clear  ; close all
+V0 = load ('SOLV0.mat') ;
+V1 = load ('SOLV1.mat') ;
+for m = 2:4 % AGDL 1 ACL 2 PEM 3 CCL 4 CGDL 5 ； 
+L0 = ([160 10 25 10 160]*1e-6); % [m] MEA layer thicknesses
+L1 = ([160 10 8 10 160]*1e-6); % [m] MEA layer thicknesses
+Lsum0 = [0 cumsum(L0)] ;
+Lsum1 = [0 cumsum(L1)] ;
+M_w = 18e-3; % [kg/mol] 
+V_m = 1.02/1.97e3; % [m^3/mol] 
+V_w = M_w/0.978e3; % [m^3/mol] 
+T_0 = 273.15; % [K] zero degrees Celsius
+R = 8.31446; % J/(mol*K) universal gas constant
+% f0 = V0.SOL{25}.y(7,:).*V_w./( V0.SOL{25}.y(7,:).*V_w + V_m ) ;
+% f1 = V1.SOL{25}.y(7,:).*V_w./( V1.SOL{25}.y(7,:).*V_w + V_m ) ;
+T_ref = T_0+80; % [K] reference temperature
+    if m == 3 % ACL 
+        xa0 = find(V0.SOL{25}.x==Lsum0(m  ), 1, 'last' );
+        xb0 = find(V0.SOL{25}.x==Lsum0(m+1), 1, 'first');
+        xa1 = find(V1.SOL{25}.x==Lsum1(m  ), 1, 'last' );
+        xb1 = find(V1.SOL{25}.x==Lsum1(m+1), 1, 'first');
+        sigmaV0(1,xa0:xb0) = 1.^1.5.*116.*max(0,V0.SOL{25}.y(7,xa0:xb0).*V_w...
+            ./( V0.SOL{25}.y(7,xa0:xb0).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V0.SOL{25}.y(5,xa0:xb0))) ; % S/m
+        sigmaV1(1,xa1:xb1) = 1.^1.5.*116.*max(0,V1.SOL{25}.y(7,xa1:xb1).*V_w...
+            ./( V1.SOL{25}.y(7,xa1:xb1).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V1.SOL{25}.y(5,xa1:xb1))) ; % S/m
+        xmesh0 = V0.SOL{25}.x(1,xa0:xb0).*1e6 ;
+        xmesh1 = V1.SOL{25}.x(1,xa1:xb1).*1e6 ;
+        plot ( xmesh0,sigmaV0 ) ;
+        hold on ;
+        plot ( xmesh1,sigmaV1 ) ;
+        xlabel ('x(um)') ;
+        ylabel ('sigma(S/m)') ;
+        legend('V0','V1') ;
+    else
+        
+        xa0 = find(V0.SOL{25}.x==Lsum0(m  ), 1, 'last' );
+        xb0 = find(V0.SOL{25}.x==Lsum0(m+1), 1, 'first');
+        xa1 = find(V1.SOL{25}.x==Lsum1(m  ), 1, 'last' );
+        xb1 = find(V1.SOL{25}.x==Lsum1(m+1), 1, 'first');
+        sigmaV0(1,xa0:xb0) = 0.3.^1.5.*116.*max(0,V0.SOL{25}.y(7,xa0:xb0).*V_w...
+            ./( V0.SOL{25}.y(7,xa0:xb0).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V0.SOL{25}.y(5,xa0:xb0))) ; % S/m
+        sigmaV1(1,xa1:xb1) = 0.3.^1.5.*116.*max(0,V1.SOL{25}.y(7,xa1:xb1).*V_w...
+            ./( V1.SOL{25}.y(7,xa1:xb1).*V_w + V_m )-0.06 ).^1.5 .*exp(15e3./R.*(1./T_ref-1./V1.SOL{25}.y(5,xa1:xb1))) ; % S/m
+    end
+
+end
