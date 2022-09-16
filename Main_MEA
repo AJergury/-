@@ -1,0 +1,14 @@
+% Main_MEA
+% T_A = 355.9 ; T_C = 355.5;
+% RHa = 104% ; RHc = 77% ;
+% P_A = 159907pa ; P_C = 154870pc 
+% x_H2O_ A = 0.211 ; x_H2O_C = 0.162 ;
+% x_h2 = 0.789 ; x_o2 = 0.136 ;
+% 域：AGDL、ACL、PEM、CCL、CGDL
+clc ; clear ; close all ;
+% [IU, SOL] = MMM1D ;
+% [IU, SOL] = MMM1D_PA ;
+% [IU, SOL] = MMM1D_thMEA ; % 厚度
+[IU, SOL] = MMM1D_h2in ; % G3数据
+IU_d = interp1(IU(:,1) , IU(:,2) , [1.8,2.0,2.2]) ; % difference of IU
+
